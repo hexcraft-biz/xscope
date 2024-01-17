@@ -33,7 +33,7 @@ func (s Slice) Len() int {
 	return len(s)
 }
 
-func (s Slice) SqlNamedPlaceholdler() string {
+func (s Slice) GetNamedPlaceholder() string {
 	placeholders := make([]string, len(s))
 	for i := range s {
 		placeholders[i] = fmt.Sprintf(":scope_%d", i)
@@ -42,7 +42,7 @@ func (s Slice) SqlNamedPlaceholdler() string {
 	return strings.Join(placeholders, ",")
 }
 
-func (s Slice) SqlNamedArgs() map[string]any {
+func (s Slice) GetNamedArgs() map[string]any {
 	args := map[string]any{}
 	for i, t := range s {
 		args[fmt.Sprintf("scope_%d", i)] = t
