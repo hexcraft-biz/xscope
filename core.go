@@ -6,9 +6,9 @@ const (
 	Delimeter = " "
 )
 
-type Scope string
+type String string
 
-func (s Scope) Slice() ScopeSlice {
+func (s String) Slice() Slice {
 	scopeMap := map[string]struct{}{}
 	for _, scope := range strings.Fields(string(s)) {
 		scopeMap[scope] = struct{}{}
@@ -24,13 +24,13 @@ func (s Scope) Slice() ScopeSlice {
 	return uniqueScopes
 }
 
-type ScopeSlice []string
+type Slice []string
 
-func (s ScopeSlice) Len() int {
+func (s Slice) Len() int {
 	return len(s)
 }
 
-func (s ScopeSlice) SqlPlaceholdler() string {
+func (s Slice) SqlPlaceholdler() string {
 	placeholders := make([]string, len(s))
 	for i := range s {
 		placeholders[i] = "?"
@@ -39,11 +39,11 @@ func (s ScopeSlice) SqlPlaceholdler() string {
 	return strings.Join(placeholders, ",")
 }
 
-func (s ScopeSlice) String() string {
-	return strings.Join(s, Delimeter)
+func (s Slice) String() String {
+	return String(strings.Join(s, Delimeter))
 }
 
-func (s ScopeSlice) Has(scope string) bool {
+func (s Slice) Has(scope string) bool {
 	for _, t := range s {
 		if t == scope {
 			return true
