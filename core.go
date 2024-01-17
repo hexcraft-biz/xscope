@@ -42,6 +42,15 @@ func (s Slice) GetNamedPlaceholder() string {
 	return strings.Join(placeholders, ",")
 }
 
+func (s Slice) GetVarPlaceholder() string {
+	placeholders := make([]string, len(s))
+	for i := range s {
+		placeholders[i] = "?"
+	}
+
+	return strings.Join(placeholders, ",")
+}
+
 func (s Slice) GetNamedArgs() map[string]any {
 	args := map[string]any{}
 	for i, t := range s {
