@@ -1,6 +1,9 @@
 package xscope
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 const (
 	Delimeter = " "
@@ -30,13 +33,22 @@ func (s Slice) Len() int {
 	return len(s)
 }
 
-func (s Slice) SqlPlaceholdler() string {
+func (s Slice) SqlNamedPlaceholdler() string {
 	placeholders := make([]string, len(s))
 	for i := range s {
-		placeholders[i] = "?"
+		placeholders[i] = fmt.Sprintf(":scope_%d", i)
 	}
 
 	return strings.Join(placeholders, ",")
+}
+
+func (s Slice) SqlNamedArgs() map[string]any {
+	args := map[string]any{}
+	for i, t := range s {
+		args[fmt.Sprintf("scope_%d", i)] = t
+	}
+
+	return args
 }
 
 func (s Slice) String() String {
