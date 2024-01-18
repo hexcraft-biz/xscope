@@ -29,6 +29,15 @@ func (s String) Slice() Slice {
 
 type Slice []string
 
+func (s Slice) AnySlice() []any {
+	result := make([]any, len(s))
+	for i, t := range s {
+		result[i] = t
+	}
+
+	return result
+}
+
 func (s Slice) Len() int {
 	return len(s)
 }
